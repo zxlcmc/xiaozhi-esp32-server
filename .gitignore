@@ -3,6 +3,7 @@ __pycache__/
 .idea/
 *.py[cod]
 *$py.class
+.vscode/
 
 # C extensions
 *.so
@@ -146,6 +147,7 @@ tmp
 .DS_Store
 main/xiaozhi-server/data
 main/xiaozhi-server/config/assets/wakeup_words.*
+main/xiaozhi-server/config/assets/my*
 main/manager-web/node_modules
 .config.yaml
 .secrets.yaml
@@ -155,3 +157,4 @@ main/manager-web/node_modules
 # model files
 main/xiaozhi-server/models/SenseVoiceSmall/model.pt
 main/xiaozhi-server/models/sherpa-onnx*
+my_wakeup_words.mp3
