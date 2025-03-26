@@ -18,51 +18,6 @@ export default {
                 })
             }).send()
     },
-    // 获取设备信息
-    getHomeList(callback) {
-        RequestService.sendRequest().url(`${getServiceUrl()}/api/v1/user/device/bind`)
-            .method('GET')
-            .success((res) => {
-                RequestService.clearRequestTime()
-                callback(res)
-            })
-            .fail(() => {
-                RequestService.reAjaxFun(() => {
-                    this.getUserInfo()
-                })
-            }).send()
-    },
-    // 解绑设备
-    unbindDevice(device_id, callback) {
-        RequestService.sendRequest()
-            .url(`${getServiceUrl()}/api/v1/user/device/unbind/${device_id}`)
-            .method('PUT')
-            .success((res) => {
-                RequestService.clearRequestTime();
-                callback(res);
-            })
-            .fail(() => {
-                RequestService.reAjaxFun(() => {
-                    this.unbindDevice(device_id, callback);
-                });
-            }).send()
-    },
-    // 绑定设备
-    bindDevice(deviceCode, callback) {
-        RequestService.sendRequest()
-            .url(`${getServiceUrl()}/api/v1/user/device/bind/${deviceCode}`)
-            .method('POST')
-            .success((res) => {
-                RequestService.clearRequestTime();
-                callback(res);
-            })
-            .fail((err) => {
-                console.error('绑定设备失败:', err);
-                RequestService.reAjaxFun(() => {
-                    this.bindDevice(deviceCode, callback);
-                });
-            }).send();
-    },
     // 获取验证码
     getCaptcha(uuid, callback) {
 
@@ -112,37 +67,6 @@ export default {
                 });
             }).send();
     },
-    // 获取所有模型名称
-    getModelNames(callback) {
-        RequestService.sendRequest()
-            .url(`${getServiceUrl()}/api/v1/models/names`)
-            .method('GET')
-            .success((res) => {
-                RequestService.clearRequestTime();
-                callback(res);
-            })
-            .fail(() => {
-                RequestService.reAjaxFun(() => {
-                    this.getModelNames(callback);
-                });
-            }).send();
-    },
-
-    // 获取模型音色
-    getModelVoices(modelName, callback) {
-        RequestService.sendRequest()
-            .url(`${getServiceUrl()}/api/v1/models/${modelName}/voices`)
-            .method('GET')
-            .success((res) => {
-                RequestService.clearRequestTime();
-                callback(res);
-            })
-            .fail(() => {
-                RequestService.reAjaxFun(() => {
-                    this.getModelVoices(modelName, callback);
-                });
-            }).send();
-    },
     // 获取智能体列表
     getAgentList(callback) {
         RequestService.sendRequest()
@@ -158,7 +82,7 @@ export default {
                 });
             }).send();
     },
-
+    // 用户信息获取
     getUserInfo(callback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/api/v1/user/info`)
@@ -205,7 +129,7 @@ export default {
                 });
             }).send();
     },
-    // API接口代码修改
+    // 修改用户密码
     changePassword(oldPassword, newPassword, successCallback, errorCallback) {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/api/v1/user/change-password`)  // 修改URL
@@ -257,4 +181,20 @@ export default {
                 });
             }).send();
     },
+    // 已绑设备
+     getAgentBindDevices(agentId, callback) {
+         RequestService.sendRequest()
+             .url(`${getServiceUrl()}/api/v1/user/agent/device/bind/${agentId}`)
+             .method('GET')
+             .success((res) => {
+                 RequestService.clearRequestTime();
+                 callback(res);
+             })
+             .fail((err) => {
+                 console.error('获取设备列表失败:', err);
+                 RequestService.reAjaxFun(() => {
+                     this.getAgentBindDevices(agentId, callback);
+                 });
+             }).send();
+     },
 }
