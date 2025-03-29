@@ -85,6 +85,7 @@ IPINFO_ACCESS_TOKEN = "631222f8eef7d7"
 
 def get_ip_info(ip_addr):
     try:
+<<<<<<< HEAD
         base_url = f"https://ipinfo.io/{ip_addr}"
         headers = {
             "Authorization": f"Bearer {IPINFO_ACCESS_TOKEN}"
@@ -95,6 +96,13 @@ def get_ip_info(ip_addr):
             "city": resp.get("city"),
             "region": resp.get("region"),
             "country": resp.get("country")
+=======
+        url = "https://whois.pconline.com.cn/ipJson.jsp?json=true"
+        resp = requests.get(url).json()
+
+        ip_info = {
+            "city": resp.get("city")
+>>>>>>> upstream/main
         }
         return ip_info
     except requests.exceptions.RequestException as e:
