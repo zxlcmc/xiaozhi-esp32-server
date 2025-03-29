@@ -65,53 +65,19 @@ def is_private_ip(ip_addr):
     except (ValueError, IndexError):
         return False  # IP address format error or insufficient segments
 
-# def get_ip_info(ip_addr):
-#     try:
-#         base_url = "https://freeipapi.com/api/json"
-#         url = base_url if is_private_ip(ip_addr) else f"{base_url}/{ip_addr}"
-
-#         resp = requests.get(url).json()
-
-#         ip_info = {
-#             "city": resp.get("cityName")
-#         }
-#         return ip_info
-#     except Exception as e:
-#         logging.error(f"Error getting client ip info: {e}")
-#         return {}
-
-# 请替换为你自己的 ipinfo.io 访问令牌
-IPINFO_ACCESS_TOKEN = "631222f8eef7d7"
-
 def get_ip_info(ip_addr):
     try:
-<<<<<<< HEAD
-        base_url = f"https://ipinfo.io/{ip_addr}"
-        headers = {
-            "Authorization": f"Bearer {IPINFO_ACCESS_TOKEN}"
-        }
-        resp = requests.get(base_url, headers=headers, timeout=10).json()
-
-        ip_info = {
-            "city": resp.get("city"),
-            "region": resp.get("region"),
-            "country": resp.get("country")
-=======
         url = "https://whois.pconline.com.cn/ipJson.jsp?json=true"
         resp = requests.get(url).json()
 
         ip_info = {
             "city": resp.get("city")
->>>>>>> upstream/main
         }
         return ip_info
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Network error getting client ip info: {e}")
-    except ValueError as e:
-        logging.error(f"JSON parsing error getting client ip info: {e}")
     except Exception as e:
-        logging.error(f"Unexpected error getting client ip info: {e}")
+        logging.error(f"Error getting client ip info: {e}")
         return {}
+
 
 def read_config(config_path):
     with open(config_path, "r", encoding="utf-8") as file:
